@@ -1,0 +1,1257 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Project Management API",
+        "description": "Project Management API endpoints",
+        "version": "1.0.0"
+      },    
+    "servers":[
+      {
+        "url": "http://localhost:2020"
+      }
+    ],
+    "components":{
+      "securitySchemes":{
+        "bearerAuth":{
+          "type": "http",
+          "scheme": "bearer",
+          "in": "header",
+          "bearerFormat": "JWT"  
+        }
+      }
+    },
+    "security":[{
+      "bearerAuth": [],
+      "jwt": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTU1M2ZhYTUxZGQ3NDNmZDU2MGUxYjAiLCJpYXQiOjE2MzI5NzY4MTB9.o__IWWiy4iqSGRUhLK71d8_awUOggfMoPbml0eG0R24"]
+    }],
+    "apis": ["./routes/*.js"],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "APIs for Users"
+        },
+        {
+            "name": "User Roles",
+            "description": "APIs for User Roles"
+        },
+        {
+            "name": "Projects",
+            "description": "APIs for Projects"
+        },
+        {
+            "name": "Sections",
+            "description": "APIs for Sections"
+        },
+        {
+            "name": "Tasks",
+            "description": "APIs for Tasks"
+        },
+        {
+            "name": "Sub Tasks",
+            "description": "APIs for Sub Tasks"
+        },
+        {
+            "name": "Workspaces",
+            "description": "APIs for Workspaces"
+        }
+    ],
+    "paths":{
+      "/users/signup":{
+        "post":{
+          "tags": [
+            "Users"
+          ],
+          "description": "Register a User",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                    "name":{
+                      "type": "string"
+                    },
+                    "username":{
+                      "type": "string"
+                    },
+                    "email":{
+                        "type": "string"
+                    },
+                    "password":{
+                      "type": "string"
+                    },
+                    "address":{
+                      "type": "object",
+                        "properties":{
+                          "street":{
+                            "type": "string"
+                          },
+                          "suite":{
+                            "type": "string"
+                          },
+                          "city":{
+                            "type": "string"
+                          },
+                          "zipcode":{
+                            "type": "string"
+                          },
+                          "geo": {
+                            "type": "object",
+                              "properties":{
+                                "long":{
+                                  "type": "string"
+                                },
+                                "lat":{
+                                  "type": "string"
+                                }
+                              }
+                          }
+                        }
+                    },
+                    "phone":{
+                      "type": "string"
+                    },
+                    "website":{
+                        "type": "string"
+                    },
+                    "company":{
+                      "type": "object",
+                        "properties":{
+                          "name":{
+                            "type": "string"
+                          },
+                          "catchphrase":{
+                            "type": "string"
+                          },
+                          "bs":{
+                            "type": "string"
+                          }
+                        }
+                    },
+                    "userRole":{
+                      "type": "string"
+                    }
+                    
+                  }
+                }
+              }     
+          }
+          },
+          "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "400": {
+                "description": "Failed. Bad post data."
+            }
+        }
+        }
+        
+      },
+      
+      "/users/signin?username=username&password=password":
+      {
+        "post":{
+          "tags": [
+            "Users"
+          ],
+          "description": "Login",
+            "parameters":[
+              {
+                "in":"query",
+                "name": "username",
+                "type":"integer",
+                "required": true,
+                "description": "username to login"
+              },
+              {
+                "in":"query",
+                "name": "password",
+                "type":"integer",
+                "required": true,
+                "description": "user password to login"
+              }
+            ],
+            "responses": {
+              "200": {
+                  "description": "OK"
+              },
+              "400": {
+                  "description": "Failed. Bad post data."
+              }
+          }
+        }
+      },
+      "/users/{id}":{
+        "patch":{
+          "tags": [
+            "Users"
+          ],
+          "description": "Update a User",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                    "name":{
+                      "type": "string"
+                    },
+                    "username":{
+                      "type": "string"
+                    },
+                    "email":{
+                        "type": "string"
+                    },
+                    "password":{
+                      "type": "string"
+                    },
+                    "address":{
+                      "type": "object",
+                        "properties":{
+                          "street":{
+                            "type": "string"
+                          },
+                          "suite":{
+                            "type": "string"
+                          },
+                          "city":{
+                            "type": "string"
+                          },
+                          "zipcode":{
+                            "type": "string"
+                          },
+                          "geo": {
+                            "type": "object",
+                              "properties":{
+                                "long":{
+                                  "type": "string"
+                                },
+                                "lat":{
+                                  "type": "string"
+                                }
+                              }
+                          }
+                        }
+                    },
+                    "phone":{
+                      "type": "string"
+                    },
+                    "website":{
+                        "type": "string"
+                    },
+                    "company":{
+                      "type": "object",
+                        "properties":{
+                          "name":{
+                            "type": "string"
+                          },
+                          "catchphrase":{
+                            "type": "string"
+                          },
+                          "bs":{
+                            "type": "string"
+                          }
+                        }
+                    },
+                    "userRole":{
+                      "type": "string"
+                    }
+                    
+                  }
+                }
+              }     
+          }
+          },
+          "parameters":[
+            {
+              "in":"path",
+              "name": "id",
+              "type":"integer",
+              "required": true,
+              "description": "User ID to Update"
+            }
+          ],
+          "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "400": {
+                "description": "Failed. Bad post data."
+            }
+        }
+        }
+        
+      },
+      "/userRoles/add":{
+        "post":{
+          "tags": [
+            "User Roles"
+          ],
+          "description": "Add a User Role",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                    "name":{
+                      "type": "string"
+                    },
+                    "description":{
+                      "type": "string"
+                    }
+                  }
+                },
+                "examples":{
+                  "zero":{
+                    "value": "{\n\t\"name\" : \"test\",\n\t\"lastName\" : \"test description\"\n}"
+                  }
+                }    
+              }     
+          }
+        }
+      }
+    },
+       
+"/userRoles/update/{id}":
+{
+  "patch":{
+    "tags": [
+      "User Roles"
+    ],
+    "description": "Update userRole by Providing ID",
+      "requestBody":{
+        "content":{
+          "application/json":{
+            "schema": {
+              "type": "object",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                }
+              }
+            }
+          }
+      }
+      },
+      "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"integer",
+          "required": true,
+          "description": "userRole ID to Update"
+        }
+      ],
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+  }
+},
+
+"/userRoles":{
+"get":{
+  "tags": [
+    "User Roles"
+  ],
+  "description": "Get All userRoles",
+  "produces": [
+    "application/json"
+],
+"responses": {
+    "200": {
+        "description": "OK"
+    },
+    "400": {
+        "description": "Failed"
+    }
+}
+}
+},
+"/userRoles/{id}": {
+"get": {
+    "tags": [
+        "User Roles"
+    ],
+    "summary": "Get userRole by ID",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get userRole"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+"/userRoles/delete/{id}": {
+"delete": {
+    "tags": [
+        "User Roles"
+    ],
+    "summary": "Remove userRole",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get Remove userRole"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+
+    
+    "/sections/add":{
+      "post":{
+        "tags": [
+          "Sections"
+        ],
+        "description": "Add a Section",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string"
+                  }
+                }
+              }  
+            }     
+        }
+      },
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+    }
+    
+  },
+  
+"/sections/update/{id}":
+{
+  "patch":{
+    "tags": [
+      "Sections"
+    ],
+    "description": "Update section by Providing ID",
+      "requestBody":{
+        "content":{
+          "application/json":{
+            "schema": {
+              "type": "object",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                },
+                "image":{
+                  "in": "formData",
+                  "type": "file"
+                }
+              }
+            }
+          }
+      }
+      },
+      "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"integer",
+          "required": true,
+          "description": "section ID to Update"
+        }
+      ],
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+  }
+},
+
+"/sections":{
+"get":{
+  "tags": [
+    "Sections"
+  ],
+  "description": "Get All sections",
+  "produces": [
+    "application/json"
+],
+"responses": {
+    "200": {
+        "description": "OK"
+    },
+    "400": {
+        "description": "Failed"
+    }
+}
+}
+},
+"/sections/{id}": {
+"get": {
+    "tags": [
+        "Sections"
+    ],
+    "summary": "Get section by ID",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get section"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+"/sections/delete/{id}": {
+"delete": {
+    "tags": [
+        "Sections"
+    ],
+    "summary": "Remove section",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get Remove section"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+
+  
+  "/workspaces/add":{
+    "post":{
+      "tags": [
+        "Workspaces"
+      ],
+      "description": "Add a Workspace",
+      "requestBody":{
+        "content":{
+            "multipart/form-data":{
+            "schema": {
+              "type": "object",
+              "consumes": "multipart/form-data",
+              "mediaType": "multipart/form-data",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                },
+                "image":{
+                  "in": "formData",
+                  "type": "file"
+                }
+              }
+            }
+          }     
+      }
+      },
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+    }
+    
+  },
+
+  
+"/workspaces/update/{id}":
+{
+  "patch":{
+    "tags": [
+      "Workspaces"
+    ],
+    "description": "Update Workspace by Providing ID",
+      "requestBody":{
+        "content":{
+          "multipart/form-data":{
+            "schema": {
+              "type": "object",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                },
+                "image":{
+                  "in": "formData",
+                  "type": "file"
+                }
+              }
+            }
+          }
+      }
+      },
+      "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"integer",
+          "required": true,
+          "description": "Workspace ID to update"
+        }
+      ],
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+  }
+},
+
+"/workspaces":{
+"get":{
+  "tags": [
+    "Workspaces"
+  ],
+  "description": "Get All Workspaces",
+  "produces": [
+    "application/json"
+],
+"responses": {
+    "200": {
+        "description": "OK"
+    },
+    "400": {
+        "description": "Failed"
+    }
+}
+}
+},
+"/workspaces/{id}": {
+"get": {
+    "tags": [
+        "Workspaces"
+    ],
+    "summary": "Get Workspace by ID",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get Workspace"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+"/workspaces/delete/{id}": {
+"delete": {
+    "tags": [
+        "Workspaces"
+    ],
+    "summary": "Remove Workspace",
+    "produces": [
+        "application/json"
+    ],
+    "parameters":[
+        {
+          "in":"path",
+          "name": "id",
+          "type":"string",
+          "required": true,
+          "description": "ID to get Remove Workspace"
+        }
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+}
+},
+
+  "/projects/add":{
+    "post":{
+      "tags": [
+        "Projects"
+      ],
+      "description": "Add a Project",
+      "requestBody":{
+        "content":{
+            "multipart/form-data":{
+            "schema": {
+              "type": "object",
+              "consumes": "multipart/form-data",
+              "mediaType": "multipart/form-data",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                },
+                "image":{
+                  "in": "formData",
+                  "type": "file"
+                },
+                "workspace":{
+                  "type": "string"
+                }
+              }
+            }
+          }     
+      }
+      },
+      "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed. Bad post data."
+        }
+    }
+    }
+  },
+  "/projects/update/{id}":
+    {
+      "patch":{
+        "tags": [
+          "Projects"
+        ],
+        "description": "Update Project by Providing ID",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema": {
+                  "type": "object",
+                  "properties":{
+                    "name":{
+                      "type": "string"
+                    },
+                    "description":{
+                      "type": "string"
+                    },
+                    "image":{
+                      "in": "formData",
+                      "type": "file"
+                    },
+                    "workspace":{
+                      "type": "string"
+                    }
+                    
+                  }
+                }
+              }     
+          }
+          },
+          "parameters":[
+            {
+              "in":"path",
+              "name": "id",
+              "type":"integer",
+              "required": true,
+              "description": "Project ID to Update"
+            }
+          ],
+          "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "400": {
+                "description": "Failed. Bad post data."
+            }
+        }
+      }
+    },
+
+  "/projects":{
+    "get":{
+      "tags": [
+        "Projects"
+      ],
+      "description": "Get All Projects",
+      "produces": [
+        "application/json"
+    ],
+    "responses": {
+        "200": {
+            "description": "OK"
+        },
+        "400": {
+            "description": "Failed"
+        }
+    }
+    }    
+  },
+  "/projects/{id}": {
+    "get": {
+        "tags": [
+            "Projects"
+        ],
+        "summary": "Get Project by ID",
+        "produces": [
+            "application/json"
+        ],
+        "parameters":[
+            {
+              "in":"path",
+              "name": "id",
+              "type":"string",
+              "required": true,
+              "description": "ID to get Project"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "400": {
+                "description": "Failed"
+            }
+        }
+    }
+  },
+  "/projects/delete/{id}": {
+    "delete": {
+        "tags": [
+            "Projects"
+        ],
+        "summary": "Remove Project",
+        "produces": [
+            "application/json"
+        ],
+        "parameters":[
+            {
+              "in":"path",
+              "name": "id",
+              "type":"string",
+              "required": true,
+              "description": "ID to get Remove Project"
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "OK"
+            },
+            "400": {
+                "description": "Failed"
+            }
+        }
+    }
+  },
+  "/tasks/add":{
+    "post":{
+      "tags": [
+        "Tasks"
+      ],
+      "description": "Add a Task",
+      "requestBody":{
+        "content":{
+          "application/json":{
+            "schema": {
+              "type": "object",
+              "properties":{
+                "name":{
+                  "type": "string"
+                },
+                "description":{
+                  "type": "string"
+                },
+                "assignee":{
+                  "type": "string"
+                },
+                "duedate":{
+                  "type": "string"
+                }
+              }
+            }   
+          }     
+      }
+    },
+    "responses": {
+      "200": {
+          "description": "OK"
+      },
+      "400": {
+          "description": "Failed. Bad post data."
+      }
+  }
+  }
+  
+},
+
+"/tasks/update/{id}":
+  {
+    "patch":{
+      "tags": [
+        "Tasks"
+      ],
+      "description": "Update Task by Providing ID",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string"
+                  },
+                  "description":{
+                    "type": "string"
+                  },
+                  "assignee":{
+                    "type": "string"
+                  },
+                  "duedate":{
+                    "type": "string"
+                  }
+                }
+              }
+            }
+        }
+        },
+        "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"integer",
+            "required": true,
+            "description": "Task ID to Update"
+          }
+        ],
+        "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed. Bad post data."
+          }
+      }
+    }
+  },
+
+"/tasks":{
+  "get":{
+    "tags": [
+      "Tasks"
+    ],
+    "description": "Get All tasks",
+    "produces": [
+      "application/json"
+  ],
+  "responses": {
+      "200": {
+          "description": "OK"
+      },
+      "400": {
+          "description": "Failed"
+      }
+  }
+  }
+},
+"/tasks/{id}": {
+  "get": {
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Get task by ID",
+      "produces": [
+          "application/json"
+      ],
+      "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"string",
+            "required": true,
+            "description": "ID to get task"
+          }
+      ],
+      "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed"
+          }
+      }
+  }
+},
+"/tasks/delete/{id}": {
+  "delete": {
+      "tags": [
+        "Tasks"
+      ],
+      "summary": "Remove task",
+      "produces": [
+          "application/json"
+      ],
+      "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"string",
+            "required": true,
+            "description": "ID to get Remove task"
+          }
+      ],
+      "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed"
+          }
+      }
+  }
+},
+
+"/subtasks/add":{
+  "post":{
+    "tags": [
+      "Sub Tasks"
+    ],
+    "description": "Add a Sub Task",
+    "requestBody":{
+      "content":{
+        "application/json":{
+          "schema": {
+            "type": "object",
+            "properties":{
+              "name":{
+                "type": "string"
+              },
+              "description":{
+                "type": "string"
+              },
+              "duedate":{
+                "type": "string"
+              }
+            }
+          }
+        }     
+    }
+  },
+  "responses": {
+    "200": {
+        "description": "OK"
+    },
+    "400": {
+        "description": "Failed. Bad post data."
+    }
+}
+}
+
+},
+
+"/subtasks/update/{id}":
+  {
+    "patch":{
+      "tags": [
+        "Sub Tasks"
+      ],
+      "description": "Update subtask by Providing ID",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema": {
+                "type": "object",
+                "properties":{
+                  "name":{
+                    "type": "string"
+                  },
+                  "description":{
+                    "type": "string"
+                  },
+                  "duedate":{
+                    "type": "string"
+                  }
+                }
+              }
+            }
+        }
+        },
+        "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"integer",
+            "required": true,
+            "description": "subtask ID to Update"
+          }
+        ],
+        "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed. Bad post data."
+          }
+      }
+    }
+  },
+
+"/subtasks":{
+  "get":{
+    "tags": [
+      "Sub Tasks"
+    ],
+    "description": "Get All subtasks",
+    "produces": [
+      "application/json"
+  ],
+  "responses": {
+      "200": {
+          "description": "OK"
+      },
+      "400": {
+          "description": "Failed"
+      }
+  }
+  }
+},
+"/subtasks/{id}": {
+  "get": {
+      "tags": [
+          "Sub Tasks"
+      ],
+      "summary": "Get subtask by ID",
+      "produces": [
+          "application/json"
+      ],
+      "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"string",
+            "required": true,
+            "description": "ID to get subtask"
+          }
+      ],
+      "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed"
+          }
+      }
+  }
+},
+"/subtasks/delete/{id}": {
+  "delete": {
+      "tags": [
+          "Sub Tasks"
+      ],
+      "summary": "Remove subtask",
+      "produces": [
+          "application/json"
+      ],
+      "parameters":[
+          {
+            "in":"path",
+            "name": "id",
+            "type":"string",
+            "required": true,
+            "description": "ID to get Remove subtask"
+          }
+      ],
+      "responses": {
+          "200": {
+              "description": "OK"
+          },
+          "400": {
+              "description": "Failed"
+          }
+      }
+  }
+}
+        }}
